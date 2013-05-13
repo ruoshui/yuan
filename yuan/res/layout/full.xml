@@ -8,6 +8,6 @@
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/fin" />
+        android:src="@drawable/boot_1" />
 
 </LinearLayout>

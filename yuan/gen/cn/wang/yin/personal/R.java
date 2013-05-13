@@ -115,13 +115,13 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int bg_splash=0x7f020000;
-        public static final int blank=0x7f020001;
-        public static final int boot_1=0x7f020002;
-        public static final int boot_2=0x7f020003;
-        public static final int boot_3=0x7f020004;
-        public static final int boot_4=0x7f020005;
-        public static final int fin=0x7f020006;
+        public static final int arrow=0x7f020000;
+        public static final int bg_splash=0x7f020001;
+        public static final int blank=0x7f020002;
+        public static final int boot_1=0x7f020003;
+        public static final int boot_2=0x7f020004;
+        public static final int boot_3=0x7f020005;
+        public static final int boot_4=0x7f020006;
         public static final int first_open_btn=0x7f020007;
         public static final int gplaces=0x7f020008;
         public static final int ic_launcher=0x7f020009;
@@ -136,27 +136,28 @@ containing a value of this type.
         public static final int splash_anim=0x7f020012;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0014;
-        public static final int blank_view=0x7f0a0010;
+        public static final int action_settings=0x7f0a0015;
+        public static final int blank_view=0x7f0a0011;
         public static final int button1=0x7f0a000a;
         public static final int editText1=0x7f0a0009;
+        public static final int express_list=0x7f0a000b;
         public static final int first_open_imageButton1=0x7f0a0008;
         public static final int imageView1=0x7f0a000c;
-        public static final int listView1=0x7f0a000b;
         public static final int mybottomviewgroup=0x7f0a0007;
         public static final int myviewpager=0x7f0a0006;
-        public static final int pop_text=0x7f0a000e;
-        public static final int relativeLayout1=0x7f0a000f;
+        public static final int pop_text=0x7f0a000f;
+        public static final int relativeLayout1=0x7f0a0010;
         public static final int scrollView1=0x7f0a0000;
         public static final int seekBar1=0x7f0a0002;
         public static final int seekBar1_textView=0x7f0a0001;
         public static final int seekBar2=0x7f0a0004;
         public static final int seekBar2_textView=0x7f0a0003;
-        public static final int sinagle_taavel_map_view=0x7f0a000d;
-        public static final int splash_anim=0x7f0a0011;
-        public static final int splash_pro=0x7f0a0013;
+        public static final int sinagle_taavel_map_view=0x7f0a000e;
+        public static final int splash_anim=0x7f0a0012;
+        public static final int splash_pro=0x7f0a0014;
         public static final int textView1=0x7f0a0005;
-        public static final int textView_log=0x7f0a0012;
+        public static final int textView2=0x7f0a000d;
+        public static final int textView_log=0x7f0a0013;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -166,13 +167,14 @@ containing a value of this type.
         public static final int boot_3=0x7f030004;
         public static final int boot_4=0x7f030005;
         public static final int express=0x7f030006;
-        public static final int full=0x7f030007;
-        public static final int location=0x7f030008;
-        public static final int location_title=0x7f030009;
-        public static final int popview=0x7f03000a;
-        public static final int save=0x7f03000b;
-        public static final int splash_activity=0x7f03000c;
-        public static final int test=0x7f03000d;
+        public static final int express_sinagle=0x7f030007;
+        public static final int full=0x7f030008;
+        public static final int location=0x7f030009;
+        public static final int location_title=0x7f03000a;
+        public static final int popview=0x7f03000b;
+        public static final int save=0x7f03000c;
+        public static final int splash_activity=0x7f03000d;
+        public static final int test=0x7f03000e;
     }
     public static final class menu {
         public static final int main=0x7f090000;
