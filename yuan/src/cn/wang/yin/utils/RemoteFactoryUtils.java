@@ -1,5 +1,6 @@
 package cn.wang.yin.utils;
 
+
 import cn.wang.yin.hessian.api.Remot;
 
 import com.caucho.hessian.client.HessianProxyFactory;

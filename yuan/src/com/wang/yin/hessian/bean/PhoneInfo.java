@@ -1,4 +1,5 @@
 package com.wang.yin.hessian.bean;
+		//com.wang.yin.hessian.bean
 
 /**
  * PhoneInfo entity. @author MyEclipse Persistence Tools

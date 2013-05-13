@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Message;
 import android.util.Log;
+
 import cn.wang.yin.hessian.api.Remot;
 
 import com.baidu.location.BDLocation;

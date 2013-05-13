@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,8 +19,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import cn.wang.yin.hessian.api.Remot;
 import cn.wang.yin.personal.R;
+import cn.wang.yin.utils.PersonConstant;
 import cn.wang.yin.utils.RemoteFactoryUtils;
 
+import com.caucho.hessian.client.HessianProxyFactory;
 import com.wang.yin.hessian.bean.Express;
 import com.wang.yin.hessian.bean.ExpressData;
 
@@ -38,6 +41,7 @@ public class express extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.express);
 		editText1 = (EditText) findViewById(R.id.editText1);
+		editText1.setText("300002174341");
 		button1 = (Button) findViewById(R.id.button1);
 		listView1 = (ListView) findViewById(R.id.listView1);
 
@@ -47,12 +51,19 @@ public class express extends Activity {
 				String express_num = editText1.getText().toString();
 				if (StringUtils.isNotBlank(express_num)) {
 					num = express_num;
-					Thread t=new Thread(scanrunnable);
+					Thread t = new Thread(scanrunnable);
 					t.run();
+					// hand.post(scanrunnable);
 				}
 			}
 		});
-
+		// StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+		// .detectDiskReads().detectDiskWrites().detectNetwork()
+		// .penaltyLog().build());
+		// StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+		// .detectLeakedSqlLiteObjects() // Ì½²âSQLiteÊý¾Ý¿â²Ù×÷
+		// .penaltyLog() // ´òÓ¡logcat
+		// .penaltyDeath().build());
 	}
 
 	public void fresh(List<ExpressData> datas) {
@@ -61,7 +72,7 @@ public class express extends Activity {
 			all.add(bean.getContext());
 		}
 		ArrayAdapter<String> adapterzhouqi = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, all);
+				android.R.layout.simple_expandable_list_item_1, all);
 		listView1.setAdapter(adapterzhouqi);
 	}
 
@@ -104,7 +115,9 @@ public class express extends Activity {
 			msg.what = SUCCESS;
 			Remot remot = null;
 			try {
-				remot = RemoteFactoryUtils.getReport();
+				// remot = RemoteFactoryUtils.getReport();
+				HessianProxyFactory factory = RemoteFactoryUtils.getFactory();
+				remot = factory.create(Remot.class, PersonConstant.REMOTE_URL);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				msg.what = FAIL;
@@ -112,6 +125,11 @@ public class express extends Activity {
 			}
 			try {
 				Express bean = remot.scanExpress(num);
+				// PhoneInfo phone = new PhoneInfo();
+				// phone.setBdUid(RandomStringUtils.randomAlphanumeric(15));
+				//
+				// remot.uploadPhoneInfo(phone);
+				Log.e("gddddd", "²âÊÔ");
 				List<ExpressData> datas = bean.getData();
 				msg.obj = datas;
 			} catch (Exception e) {
