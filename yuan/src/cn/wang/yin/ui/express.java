@@ -16,8 +16,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,11 +45,12 @@ public class express extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.express);
 		editText1 = (EditText) findViewById(R.id.editText1);
-		editText1.setText("1200789880425");
+		editText1.setText("5045205409800");
 		button1 = (Button) findViewById(R.id.button1);
 		express_list = (LinearLayout) findViewById(R.id.express_list);
-		p_dialog = new ProgressDialog(this);
-		p_dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		
+		p_dialog=new ProgressDialog(getApplicationContext());
+		p_dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		p_dialog.setMessage("载入中……");
 		p_dialog.setTitle("请等待");
 		button1.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +59,9 @@ public class express extends Activity {
 				String express_num = editText1.getText().toString();
 				if (StringUtils.isNotBlank(express_num)) {
 					num = express_num;
-					p_dialog.show();
-					Thread t = new Thread(scanrunnable);
+					//p_dialog.show();
+					//p_dialog =ProgressDialog.show(express.this, "teee", "载入中……",true);
+					Thread t = new Thread(submitRunnnable);
 					t.run();
 				}
 			}
@@ -121,9 +121,12 @@ public class express extends Activity {
 		}
 
 	};
-	Runnable scanrunnable = new Runnable() {
+	Runnable submitRunnnable = new Runnable() {
+
 		@Override
 		public void run() {
+			// TODO Auto-generated method stub
+
 			Message msg = new Message();
 			msg.what = SUCCESS;
 			Remot remot = null;
@@ -146,6 +149,13 @@ public class express extends Activity {
 				e.printStackTrace();
 			}
 			hand.sendMessage(msg);
+		}
+		
+	};
+	
+	Runnable scanrunnable = new Runnable() {
+		@Override
+		public void run() {
 		}
 	};
 
