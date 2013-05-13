@@ -11,4 +11,5 @@ public class Base extends Activity {
 		CrashHandler crashHandler = CrashHandler.getInstance();
 		crashHandler.init(getApplicationContext());
 	}
+	
 }
