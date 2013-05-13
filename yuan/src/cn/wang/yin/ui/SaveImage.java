@@ -77,7 +77,7 @@ public class SaveImage extends Activity {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				strLen = progress > 10 ? progress * 10 : 10;
-
+//ggg
 				push("当前长度为：" + strLen);
 			}
 		});
