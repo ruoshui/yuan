@@ -60,5 +60,7 @@
   <color name="pressed">#fff22fff</color>
   <color name="selected">#fff33fff</color>
   <color name="focused">#ffff44ff</color>
-
+<color name="background_color">#F555</color>
+<color name="marking_color">#AFFF</color>
+<color name="text_color">#AFFF</color>
 </resources>
