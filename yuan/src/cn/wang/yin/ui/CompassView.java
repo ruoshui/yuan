@@ -31,8 +31,8 @@ import android.widget.ImageView;
 public class CompassView extends ImageView {
 	private float mDirection;// 方向旋转浮点数
 	private Drawable compass;// 图片资源
-
-	// 三个构造器
+	
+	//三个构造器
 	public CompassView(Context context) {
 		super(context);
 		mDirection = 0.0f;// 默认不旋转

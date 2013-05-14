@@ -17,10 +17,6 @@
 package cn.wang.yin.ui;
 
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import cn.wang.yin.personal.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -41,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.wang.yin.personal.R;
 
 public class CompassActivity extends Activity {
 	private static final int EXIT_TIME = 2000;// 两次按返回键的间隔判断
@@ -57,6 +54,7 @@ public class CompassActivity extends Activity {
 	private boolean mChinease;// 系统当前是否使用中文
 	private long firstExitTime = 0L;// 用来保存第一次按返回键的时间
 
+	LocationApplication application;
 	View mCompassView;
 	CompassView mPointer;// 指南针view
 	// TextView mLocationTextView;// 显示位置的view
@@ -118,15 +116,18 @@ public class CompassActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		application = LocationApplication.getInstance();
 		setContentView(R.layout.main);
 		initResources();// 初始化view
 		initServices();// 初始化传感器和位置服务
+		application.mTv = mLatitudeTV;
+		application.mAddress = mLongitudeTV;
 
-		// if (application.mData != null)
-		// mLatitudeTV.setText(application.mData);
-		// if (application.address != null)
-		// mLatitudeTV.setText(application.address);
-		// application.mLocationClient.start();
+		if (application.mData != null)
+			mLatitudeTV.setText(application.mData);
+		if (application.address != null)
+			mLatitudeTV.setText(application.address);
+		application.mLocationClient.start();
 	}
 
 	@Override
@@ -140,27 +141,29 @@ public class CompassActivity extends Activity {
 		}
 	}
 
-	Timer timer = new Timer();
-	TimerTask task;
-
 	@Override
 	protected void onResume() {// 在恢复的生命周期里判断、启动位置更新服务和传感器服务
 		super.onResume();
-		mStopDrawing = false;
-		mHandler.postDelayed(mCo, 200);
-	}
-
-	float f = 0;
-	Runnable mCo = new Runnable() {
-		@Override
-		public void run() {
-			f++;
-			mPointer.updateDirection(f);
-			updateDirection();
-			mHandler.postDelayed(mCo, 200);
+		// if (mLocationProvider != null) {
+		// updateLocation(mLocationManager
+		// .getLastKnownLocation(mLocationProvider));
+		// mLocationManager.requestLocationUpdates(mLocationProvider, 2000,
+		// 10, mLocationListener);// 2秒或者距离变化10米时更新一次地理位置
+		// }
+		// else {
+		// mLocationTextView.setText(R.string.cannot_get_location);
+		// }
+		if (mOrientationSensor != null) {
+			mSensorManager.registerListener(mOrientationSensorEventListener,
+					mOrientationSensor, SensorManager.SENSOR_DELAY_GAME);
+		} else {
+			// Toast.makeText(this, R.string.cannot_get_sensor,
+			// Toast.LENGTH_SHORT)
+			// .show();
 		}
-
-	};
+		mStopDrawing = false;
+		mHandler.postDelayed(mCompassViewUpdater, 20);// 20毫秒执行一次更新指南针图片旋转
+	}
 
 	@Override
 	protected void onPause() {// 在暂停的生命周期里注销传感器服务和位置更新服务
@@ -169,6 +172,9 @@ public class CompassActivity extends Activity {
 		if (mOrientationSensor != null) {
 			mSensorManager.unregisterListener(mOrientationSensorEventListener);
 		}
+		// if (mLocationProvider != null) {
+		// mLocationManager.removeUpdates(mLocationListener);
+		// }
 	}
 
 	// 初始化view
@@ -192,6 +198,8 @@ public class CompassActivity extends Activity {
 		mDirectionLayout = (LinearLayout) findViewById(R.id.layout_direction);// 顶部显示方向名称（东南西北）的LinearLayout
 		mAngleLayout = (LinearLayout) findViewById(R.id.layout_angle);// 顶部显示方向具体度数的LinearLayout
 
+		// mPointer.setImageResource(mChinease ? R.drawable.compass_cn
+		// : R.drawable.compass);// 如果系统使用中文，就用中文的指南针图片
 	}
 
 	// 初始化传感器和位置服务
@@ -200,6 +208,19 @@ public class CompassActivity extends Activity {
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mOrientationSensor = mSensorManager.getSensorList(
 				Sensor.TYPE_ORIENTATION).get(0);
+		// Log.i("way", mOrientationSensor.getName());
+
+		// location manager
+		// mLocationManager = (LocationManager)
+		// getSystemService(Context.LOCATION_SERVICE);
+		// Criteria criteria = new Criteria();// 条件对象，即指定条件过滤获得LocationProvider
+		// criteria.setAccuracy(Criteria.ACCURACY_FINE);// 较高精度
+		// criteria.setAltitudeRequired(false);// 是否需要高度信息
+		// criteria.setBearingRequired(false);// 是否需要方向信息
+		// criteria.setCostAllowed(true);// 是否产生费用
+		// criteria.setPowerRequirement(Criteria.POWER_LOW);// 设置低电耗
+		// mLocationProvider = mLocationManager.getBestProvider(criteria,
+		// true);// 获取条件最好的Provider
 
 	}
 
@@ -361,6 +382,8 @@ public class CompassActivity extends Activity {
 			}
 			mLatitudeTV.setText(latitudeStr);
 			mLongitudeTV.setText(longitudeStr);
+			// mLocationTextView.setText(sb.toString());//
+			// 显示经纬度，其实还可以作反向编译，显示具体地址
 		}
 	}
 
@@ -393,4 +416,31 @@ public class CompassActivity extends Activity {
 		return (degree + 720) % 360;
 	}
 
+	// 位置信息更新监听
+	// LocationListener mLocationListener = new LocationListener() {
+	//
+	// @Override
+	// public void onStatusChanged(String provider, int status, Bundle extras) {
+	// if (status != LocationProvider.OUT_OF_SERVICE) {
+	// updateLocation(mLocationManager
+	// .getLastKnownLocation(mLocationProvider));
+	// }
+	// // else {
+	// // mLocationTextView.setText(R.string.cannot_get_location);
+	// // }
+	// }
+	//
+	// @Override
+	// public void onProviderEnabled(String provider) {
+	// }
+	//
+	// @Override
+	// public void onProviderDisabled(String provider) {
+	// }
+	//
+	// @Override
+	// public void onLocationChanged(Location location) {
+	// updateLocation(location);// 更新位置
+	// }
+	// };
 }
