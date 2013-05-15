@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import cn.wang.yin.personal.R;
 
-public class TabMain extends FragmentActivity {
+public class FragmentMain extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle arg0) {
