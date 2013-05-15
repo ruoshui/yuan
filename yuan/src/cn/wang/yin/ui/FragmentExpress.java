@@ -99,6 +99,12 @@ public class FragmentExpress extends Fragment {
 
 	}
 
+	@Override
+	public void onPause() {
+
+		super.onPause();
+	}
+
 	Handler hand = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -116,7 +122,7 @@ public class FragmentExpress extends Fragment {
 			case FAIL: {
 				AlertDialog dialog = new AlertDialog.Builder(getActivity())
 						.setTitle("提示")
-						.setMessage("需要网络，您的手机当前网络不可用，请设置您的网络")
+						.setMessage("超时！请重试！")
 						.setPositiveButton("确定",
 								new DialogInterface.OnClickListener() {
 									@Override

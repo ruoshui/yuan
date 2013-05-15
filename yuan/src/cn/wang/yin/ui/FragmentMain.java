@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import cn.wang.yin.personal.R;
 import cn.wang.yin.ui.fragment.FragmentExecute;
-import cn.wang.yin.ui.fragment.FragmentLaunch;
 import cn.wang.yin.ui.fragment.FragmentSearch;
 import cn.wang.yin.ui.fragment.FragmentTeam;
 import cn.wang.yin.ui.widget.BottomBar;
@@ -35,10 +35,10 @@ public class FragmentMain extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		if (!PersonDbUtils.getValue(PersonConstant.USER_FIRST_OPEN, false)) {
-			startActivityForResult(
-					(new Intent().setClass(FragmentMain.this, GuideViewActivity.class)),
+			startActivityForResult((new Intent().setClass(FragmentMain.this,
+					GuideViewActivity.class)),
 					PersonConstant.ETONG_RESULTCODE_INDEX);
-			
+
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.frame_main);
@@ -69,7 +69,7 @@ public class FragmentMain extends FragmentActivity {
 			details = new FragmentExpress();
 			break;
 		case 2:
-			details = new FragmentTeam();
+			details = new SaveImageFragment();
 			break;
 		case 3:
 			details = new FragmentSearch();
@@ -86,6 +86,20 @@ public class FragmentMain extends FragmentActivity {
 		// ft.addToBackStack(null);//这行代码可以返回之前的操作（横屏的情况下，即两边都显示的情况下）
 		ft.commit();
 	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// super.onResume();
+			super.onStop();
+
+			return true;
+		} else if (keyCode == KeyEvent.KEYCODE_MENU) {
+
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	public static void launch(Context c) {
 		Intent intent = new Intent(c, FragmentMain.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
