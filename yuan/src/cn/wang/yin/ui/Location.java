@@ -50,12 +50,6 @@ public class Location extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		if (!PersonDbUtils.getValue(PersonConstant.USER_FIRST_OPEN, false)) {
-			startActivityForResult(
-					(new Intent().setClass(Location.this, GuideViewActivity.class)),
-					PersonConstant.ETONG_RESULTCODE_INDEX);
-			
-		}
 		
 //		PersonDbUtils.init(
 //				getApplicationContext(),
