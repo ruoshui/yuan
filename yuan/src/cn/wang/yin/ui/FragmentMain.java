@@ -10,7 +10,6 @@ import cn.wang.yin.personal.R;
 import cn.wang.yin.ui.fragment.FragmentExecute;
 import cn.wang.yin.ui.fragment.FragmentLaunch;
 import cn.wang.yin.ui.fragment.FragmentSearch;
-import cn.wang.yin.ui.fragment.FragmentSetting;
 import cn.wang.yin.ui.fragment.FragmentTeam;
 import cn.wang.yin.ui.widget.BottomBar;
 import cn.wang.yin.ui.widget.BottomBar.OnItemChangedListener;
@@ -67,7 +66,7 @@ public class FragmentMain extends FragmentActivity {
 			details = new FragmentExecute();
 			break;
 		case 1:
-			details = new FragmentLaunch();
+			details = new FragmentExpress();
 			break;
 		case 2:
 			details = new FragmentTeam();
@@ -76,7 +75,7 @@ public class FragmentMain extends FragmentActivity {
 			details = new FragmentSearch();
 			break;
 		case 4:
-			details = new FragmentSetting();
+			details = new FragmentExpress();
 			break;
 		}
 		// Execute a transaction, replacing any existing
