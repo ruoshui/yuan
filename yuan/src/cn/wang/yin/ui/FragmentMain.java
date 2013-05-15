@@ -92,7 +92,7 @@ public class FragmentMain extends FragmentActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			// super.onResume();
-			super.onStop();
+			//super.onStop();
 
 			return true;
 		} else if (keyCode == KeyEvent.KEYCODE_MENU) {
